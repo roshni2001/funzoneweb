@@ -25,10 +25,16 @@ import ProjectRoute from "./Routes/ProjectRoute.js";
 import TaskRoute from "./Routes/TaskRoute.js";
 import morgan from "morgan";
 import { VerifyMail } from "./Controllers/AuthController.js";
+import path from "path";
 // dotenv.config({path:'./config.env'});
 dotenv.config();
 const app = express();
 const mongoURI = process.env.DATABASE;
+app.get('/',(req, res)=>{
+  app.use(express.static(path.resolve(__dirname,'client','build')))
+  res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+})
+
 const port = process.env.PORT || 5001;
 // Set the view engine to ejs
 app.set("view engine", "ejs");
